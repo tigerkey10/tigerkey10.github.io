@@ -13,7 +13,7 @@ sass:
   sass_dir: _sass
 plainwhite:
   name: Ki Beom Kim
-  tagline: der Wille zur Macht, 10,000 hour
+  tagline: der Wille zur Macht,
   date_format: "%b %-d, %Y"
   sitemap: true # set to true to generate sitemap.xml content
   search: true # set to true to enable searchbar
