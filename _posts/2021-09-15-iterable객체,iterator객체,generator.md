@@ -366,6 +366,7 @@ gen_comp = (combinations(omega, i) for i in range(5))
 # 또는 
 gen = (i for i in range(5)) 
 ```
+---
 
 ## 정리 : 
 
