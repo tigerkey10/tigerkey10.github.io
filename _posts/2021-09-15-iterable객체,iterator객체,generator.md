@@ -29,6 +29,8 @@ last_modified_at : 2021-09-15
 
 https://wikidocs.net/74399
 
+---
+
 # iterable 객체 
 
 ## 정의 : 
@@ -74,7 +76,7 @@ class four() :
         return self  # 자기자신이 iterator 객체라고 선언
 ```
 ---
-# 이터러블 객체, 이터레이터 객체 만들기 
+# iterable 객체, iterator 객체 만들기 
 
 ```python
 # 이터러블 객체, 이터레이터 객체 만들고 호출하기 
@@ -364,3 +366,14 @@ gen_comp = (combinations(omega, i) for i in range(5))
 # 또는 
 gen = (i for i in range(5)) 
 ```
+
+## 정리 : 
+
+iterable, iterator : '반복가능자'
+
+generator : 비복원 추출만 가능한 '공 주머니'
+
+
+
+
+
