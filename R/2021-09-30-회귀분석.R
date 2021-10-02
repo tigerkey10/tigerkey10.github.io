@@ -42,7 +42,17 @@ lm_result = lm(y~x)
 # 데이터프레임만 들어갈 수 있다.
 predict(lm_result, data.frame(x=c(50,79)))# 독립변수 x 값 50, 79 일 때 예측값
 
-# 이거 확인 필요하다. <-- 뭘 구한건가? 
+# 90% 신뢰수준 에서 예측값을 구할 수 있다. 
 predict(lm_result, data.frame(x=sort(x)), level=.9, interval='confidence')
+# 99% 신뢰수준에서 예측값 구할 수 있다. 
+predict(lm_result, data.frame(x=sort(x)), level=.99, interval='confidence')
 
+# 다중회귀분석
+x = 1:10
+y = sample(1:100,10)
+z = x+y
+lm(z~x+y)
+
+z = x+y+rnorm(10,0,2) # 10개 표본 추출, 정규분포 기댓값 = 0 , 표준편차 = 2
+summary(lm(z~x+y))
 
