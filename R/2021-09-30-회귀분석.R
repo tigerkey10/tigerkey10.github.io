@@ -24,7 +24,7 @@ plot(x,y)
 
 # 선형모형 정의 
 lm(y~x)
-# intercept 는 최적 b0 값, x값은 최적 b1 값이다. 
+# intercept 는 최적 b0 값(절편), x값은 최적 b1 값이다. 
 summary(lm(y~x)) # 회귀분석 결과 출력
 # coefficients 에 나오는 값들이 가중치 값들이다. 
 
