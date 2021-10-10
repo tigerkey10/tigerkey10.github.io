@@ -126,7 +126,7 @@ $H_{0}2$: 요인 B 집단(빨간색 네모박스)분포 별 평균은 같다.
 
 <img width="939" alt="(dataset for two-way ANOVA, factor A   B, factor levels a   l" src="https://user-images.githubusercontent.com/83487073/136698219-183d924c-35d2-4b0d-9184-35bd57fd29f1.png">
 
-[ 그림 출처: https://rfriend.tistory.com/136?category=605867 ]
+[ 그림 출처: https://rfriend.tistory.com/136?category=605867 , 사각형 표시는 내가 넣은 것임 ]
 
 $H_{0}1$: 요인A 집단(파란색 네모 박스) 분포 별 평균은 같다 (요인 A는 종속변수에 영향 미치지 못한다.)
 
