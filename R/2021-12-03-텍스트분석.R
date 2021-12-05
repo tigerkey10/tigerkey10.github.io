@@ -47,17 +47,17 @@ useNIADic()
 
 nalchi[, 'X.4']
 
-extract_nouns = function(i) {
-  a = SimplePos22(nalchi$X.4[i])
+extract_nouns = function(name, i) {
+  a = SimplePos22(name$X.4[i])
   r = melt(a)
   result = str_match(a, '([가-힣]+)/N')
   rr = result[,2]
   nouns = rr[!is.na(rr)]
-  if (str_detect(nalchi$X.5[i], '[0-9+K]') == TRUE) {
-      el = gsub('\\.', '', nalchi$X.5[i])
+  if (str_detect(name$X.5[i], '[0-9+K]') == TRUE) {
+      el = gsub('\\.', '', name$X.5[i])
       heart = as.integer(gsub('K', '', el))*100
   } else {
-      heart = as.integer(nalchi$X.5[i])
+      heart = as.integer(name$X.5[i])
   }
   nouns = rep(nouns, heart)
   return(nouns)
@@ -102,7 +102,7 @@ extract_freq_words = function(data) {
   return(new_list)
 }
 
-extract_freq_words(nalchi$X.4) -> extract
+extract_freq_words(nalchi) -> extract
 head(sort(table(extract), decreasing=T),80)
 
 #------------------------------
@@ -250,43 +250,245 @@ more_than[3697:3724,] -> meperfect
 emp = c()
 
 
-extract_freq_words(views$X.4) -> extract1
-edited1 = head(sort(table(extract1), decreasing=T),80)
+extract_freq_words(views) -> extract1
+edited1 = head(sort(table(extract1), decreasing=T),8) ; edited1
+extract1 <- Filter(function(x){nchar(x)>=2}, extract1)
 
-extract_freq_words(spen$X.4) -> extract2
-edited2 = head(sort(table(extract2), decreasing=T),80)
 
-extract_freq_words(togo$X.4) -> extract3
-edited3 = head(sort(table(extract), decreasing=T),80)
+extract1 = gsub('웅장함함', '웅장함', extract1)
+extract1 = gsub('시작', '', extract1)
+extract1 = gsub('세상', '', extract1)
+extract1 = gsub('성공', '', extract1)
+extract1 = gsub('광고', '', extract1)
+extract1 = gsub('이번', '', extract1)
+extract1 = gsub('웅장하', '웅장함', extract1)
+extract1 = gsub('삼성', '', extract1)
+extract1 = gsub('누구', '', extract1)
+extract1 = gsub('누구', '', extract1)
+extract1 = gsub('성공해서', '성공', extract1)
+extract1 = gsub('시작할', '시작', extract1)
+extract1 = gsub('성공해서', '성공', extract1)
+extract1 = gsub('연출한', '연출', extract1)
+extract1 = gsub('성공해서', '성공', extract1)
+extract1 = gsub('지점', '', extract1)
+extract1 = gsub('페이스데', '', extract1)
+extract1 = gsub('몰랐', '', extract1)
+extract1 = gsub('이롭', '', extract1)
+extract1 = gsub('지점', '', extract1)
+extract1 = gsub('거구', '', extract1)
+extract1 = gsub('예쁘', '예쁨', extract1)
+extract1 = gsub('오지', '오진다', extract1)
+extract1 = gsub('웅장', '웅장함', extract1)
+extract1 = gsub('이거', '', extract1)
+extract1 = gsub('던져지죵', '', extract1)
+extract1 = gsub('일만', '', extract1)
+extract1 = gsub('발전하면', '발전', extract1)
+extract1 = gsub('맞는거', '', extract1)
+extract1 = gsub('안준다고', '', extract1)
+extract1 = gsub('인가요', '', extract1)
+extract1 = gsub('인조인간설이', '인조인간', extract1)
+extract1 = gsub('나올줄알', '', extract1)
+extract1 = gsub('으로', '', extract1)
+extract1 = gsub('잘어울', '잘어울림', extract1)
+extract1 = gsub('잘만들었', '잘만들었음', extract1)
+extract1 = gsub('잘생겼', '잘생겼음', extract1)
+extract1 = gsub('고싶', '', extract1)
+extract1 = gsub('같았구', '', extract1)
+extract1 = gsub('고급진', '고급스러움', extract1)
+extract1 = gsub('부분', '', extract1)
+extract1 = gsub('세련됬네', '세련됨', extract1)
+extract1 = gsub('지점', '', extract1)
 
-extract_freq_words(ultra$X.4) -> extract4
+plot(edited1, family='AppleGothic', main='views', xlab='keyword')
+
+library(RColorBrewer)
+library(wordcloud)
+names(head(sort(table(data_unlist), decreasing=T),50))
+head(sort(table(data_unlist), decreasing=T),50)
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract1), decreasing=T),50)),
+  head(sort(table(extract1), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+
+
+
+
+
+
+extract_freq_words(spen) -> extract2
+edited2 = head(sort(table(extract2), decreasing=T),7) ; edited2
+extract2 <- Filter(function(x){nchar(x)>=2}, extract2)
+
+extract2 = gsub('삼성', '', extract2)
+extract2 = gsub('노래실화', '노래', extract2)
+extract2 = gsub('노랜', '노래', extract2)
+extract2 = gsub('광고', '', extract2)
+extract2 = gsub('공식', '', extract2)
+extract2 = gsub('그거', '', extract2)
+extract2 = gsub('이노래', '노래', extract2)
+extract2 = gsub('광고나와', '', extract2)
+extract2 = gsub('다시보', '다시봄', extract2)
+extract2 = gsub('모두', '', extract2)
+extract2 = gsub('에서', '', extract2)
+extract2 = gsub('폴드에도', '폴드', extract2)
+
+extract2 = gsub('나와', '', extract2)
+extract2 = gsub('다시봄', '', extract2)
+extract2 = gsub('폴드에도', '폴드', extract2)
+extract2 = gsub('하나', '', extract2)
+extract2 = gsub('폴드에도', '폴드', extract2)
+
+extract2 = gsub('언제', '', extract2)
+extract2 = gsub('작년', '', extract2)
+extract2 = gsub('올해', '', extract2)
+extract2 = gsub('마음', '', extract2)
+extract2 = gsub('정돈', '', extract2)
+extract2 = gsub('언제', '', extract2)
+
+extract2 = gsub('플리에', '', extract2)
+extract2 = gsub('최고인데노트는', '노트', extract2)
+extract2 = gsub('언제', '', extract2)
+
+extract2 = gsub('이거', '', extract2)
+
+extract2 = gsub('단종되는겁니까', '단종', extract2)
+extract2 = gsub('단종하지', '단종', extract2)
+extract2 = gsub('이거', '', extract2)
+
+extract2 = gsub('존버는', '존버', extract2)
+extract2 = gsub('비교해서', '', extract2)
+extract2 = gsub('조은데', '', extract2)
+extract2 = gsub('존버는', '존버', extract2)
+
+plot(edited2, family='AppleGothic', main='s-pen', xlab='keyword', ylab='frequency')
+
+library(RColorBrewer)
+library(wordcloud)
+
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract2), decreasing=T),50)),
+  head(sort(table(extract2), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+
+
+
+
+
+
+
+
+
+#-------여기서부터 해야 한다. 
+
+extract_freq_words(togo) -> extract3
+edited3 = head(sort(table(extract3), decreasing=T),80)
+edited3
+
+
+extract_freq_words(ultra) -> extract4
 edited4 = head(sort(table(extract4), decreasing=T),80)
+edited4
 
-extract_freq_words(memory$X.4) -> extract5
+
+extract_freq_words(memory) -> extract5
 edited5 = head(sort(table(extract5), decreasing=T),80)
+edited5
 
-extract_freq_words(unboxing$X.4) -> extract6
+
+extract_freq_words(unboxing) -> extract6
 edited6 = head(sort(table(extract6), decreasing=T),80)
+edited6
 
-extract_freq_words(jp_ep3$X.4) -> extract7
+
+extract_freq_words(jp_ep3) -> extract7
 edited7 = head(sort(table(extract7), decreasing=T),80)
+edited7
 
-extract_freq_words(nalchi_unboxing$X.4) -> extract8
+
+extract_freq_words(nalchi_unboxing) -> extract8
 edited8 = head(sort(table(extract8), decreasing=T),80)
 
-extract_freq_words(panthom$X.4) -> extract9
-edited9 = head(sort(table(extract9), decreasing=T),80)
 
-extract_freq_words(epicineveryway$X.4) -> extract10
+
+extract_freq_words(panthom) -> extract9
+edited9 = head(sort(table(extract9), decreasing=T), 80)
+
+
+extract_freq_words(epicineveryway) -> extract10
 edited10 = head(sort(table(extract10), decreasing=T),80)
 
-extract_freq_words(bang$X.4) -> extract11
+
+
+extract_freq_words(bang) -> extract11
 edited11 = head(sort(table(extract11), decreasing=T),80)
 
-extract_freq_words(nobcut$X.4) -> extract12
+
+
+extract_freq_words(nobcut) -> extract12
 edited12 = head(sort(table(extract12), decreasing=T),80)
 
-extract_freq_words(meperfect$X.4) -> extract13
-edited13 = head(sort(table(extract13), decreasing=T),80)
 
-extract_freq_words(meperfect$X.4)
+
+extract_freq_words(meperfect) -> extract13
+edited13 = head(sort(table(extract13), decreasing=T),80)
+edited13
+
+
+
+#--------------------------------------------------------
+extract_nouns = function(name, i) {
+  a = SimplePos22(name$X.4[i])
+  r = melt(a)
+  result = str_match(a, '([가-힣]+)/N')
+  rr = result[,2]
+  nouns = rr[!is.na(rr)]
+  if (str_detect(name$X.5[i], '[0-9+K]') == TRUE) {
+      el = gsub('\\.', '', name$X.5[i])
+      heart = as.integer(gsub('K', '', el))*100
+  } else {
+      heart = as.integer(name$X.5[i])
+  }
+  nouns = rep(nouns, heart)
+  return(nouns)
+}
+
+
+head(extract_nouns(bang, 1))
+
+
+#----------------------------------------------------------
+
+extract_freq_words = function(data) {
+  noun_list = c()
+  for (i in 1:length(data$X.4)) {
+    noun_list = c(noun_list, extract_nouns(data, i))
+  }
+  new_list = c()
+  a = 1
+  for (i in noun_list) {
+    if (nchar(i) == 1) {
+      next
+    }
+    new_list[a] = i
+    a = a+1
+  }
+  return(new_list)
+}
+
+#---------------------------------------------
+
+table(extract_freq_words(nalchi))
