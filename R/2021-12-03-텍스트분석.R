@@ -395,28 +395,219 @@ wordcloud(
 #-------여기서부터 해야 한다. 
 
 extract_freq_words(togo) -> extract3
-edited3 = head(sort(table(extract3), decreasing=T),80)
+edited3 = head(sort(table(extract3), decreasing=T),8)
 edited3
 
+extract3 = gsub('진짜', '', extract3)
+extract3 = gsub('갤럭시', '', extract3)
+extract3 = gsub('사람을', '', extract3)
+extract3 = gsub('삼성', '', extract3)
+extract3 = gsub('누구', '', extract3)
+extract3 = gsub('사람', '', extract3)
+extract3 = gsub('진짜', '', extract3)
+extract3 = gsub('지우', '지우개', extract3)
+extract3 = gsub('겠습니ㄷ', '', extract3)
+extract3 = gsub('ㄷ 음', '', extract3)
+extract3 = gsub('좋아보인', '좋아보임', extract3)
+extract3 = gsub('닷컴에', '', extract3)
+extract3 = gsub('못따라가', '', extract3)
+extract3 = gsub('언제', '', extract3)
+extract3 = gsub('없던데레드', '레드', extract3)
+extract3 = gsub('지우개개', '지우개', extract3)
+
+extract3 <- Filter(function(x){nchar(x)>=2}, extract3)
+plot(edited3, family='AppleGothic', main='to go', xlab='keyword', ylab='frequency')
+
+library(RColorBrewer)
+library(wordcloud)
+
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract3), decreasing=T),50)),
+  head(sort(table(extract3), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+#----------------------------
 
 extract_freq_words(ultra) -> extract4
-edited4 = head(sort(table(extract4), decreasing=T),80)
+edited4 = head(sort(table(extract4), decreasing=T),8)
 edited4
 
+extract4 = gsub('진짜', '', extract4)
+extract4 = gsub('이상한', '', extract4)
+extract4 = gsub('언팩보다 ', '', extract4)
+extract4 = gsub('이쪽보는게', '', extract4)
+extract4 = gsub('좋긴', '', extract4)
+extract4 = gsub('광고', '', extract4)
+extract4 = gsub('삼성', '', extract4)
+extract4 = gsub('실화', '', extract4)
+extract4 = gsub('안드로이드', '', extract4)
+extract4 = gsub('의미', '', extract4)
+extract4 = gsub('이번', '', extract4)
+extract4 = gsub('진짜', '', extract4)
+extract4 = gsub('진짜', '', extract4)
+
+extract4 = gsub('카피', '', extract4)
+extract4 = gsub('장점', '', extract4)
+
+extract4 <- Filter(function(x){nchar(x)>=2}, extract4)
+plot(edited4, family='AppleGothic', main='Ultra model', xlab='keyword', ylab='frequency')
+
+library(RColorBrewer)
+library(wordcloud)
+
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract4), decreasing=T),50)),
+  head(sort(table(extract4), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+
+
+
+#----------------------------------------
 
 extract_freq_words(memory) -> extract5
-edited5 = head(sort(table(extract5), decreasing=T),80)
+edited5 = head(sort(table(extract5), decreasing=T),8)
 edited5
 
+extract5 = gsub('광고', '', extract5)
+extract5 = gsub('달고리즘', '달사진', extract5)
+extract5 = gsub('달사진찍으면', '달사진', extract5)
+extract5 = gsub('이거', '', extract5)
+extract5 = gsub('자기', '', extract5)
+extract5 = gsub('엄마', '', extract5)
+extract5 = gsub('진짜', '', extract5)
+extract5 = gsub('아버지', '', extract5)
+extract5 = gsub('유출', '', extract5)
+extract5 = gsub('으로', '', extract5)
+extract5 = gsub('갤럭시', '', extract5)
+extract5 = gsub('서브', '', extract5)
+extract5 = gsub('코트', '', extract5)
+extract5 = gsub('테니스', '', extract5)
+extract5 = gsub('수준', '', extract5)
+extract5 = gsub('과장광', '과장광고', extract5)
+extract5 = gsub('손등', '', extract5)
+
+extract5 <- Filter(function(x){nchar(x)>=2}, extract5)
+plot(edited5, family='AppleGothic', main='memory', xlab='keyword', ylab='frequency')
+
+library(RColorBrewer)
+library(wordcloud)
+
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract5), decreasing=T),50)),
+  head(sort(table(extract5), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+
+
+#---------------------------------------
 
 extract_freq_words(unboxing) -> extract6
-edited6 = head(sort(table(extract6), decreasing=T),80)
+edited6 = head(sort(table(extract6), decreasing=T),8)
 edited6
 
+extract6 = gsub('광고', '', extract6)
+extract6 = gsub('삼성', '', extract6)
+extract6 = gsub('갤럭시', '', extract6)
+extract6 = gsub('펭수와', '펭수', extract6)
+extract6 = gsub('우리', '', extract6)
+extract6 = gsub('유느님과', '유재석', extract6)
+extract6 = gsub('유재석님', '유재석', extract6)
+extract6 = gsub('펭수르', '펭수', extract6)
+extract6 = gsub('펭수가', '펭수', extract6)
+extract6 = gsub('유느님', '유재석', extract6)
+extract6 = gsub('대박나기', '대박', extract6)
+extract6 = gsub('기원', '', extract6)
+extract6 = gsub('에서도', '', extract6)
+extract6 = gsub('펭귄', '펭수', extract6)
+extract6 = gsub('펭러', '펭수', extract6)
+extract6 = gsub('유튜브', '', extract6)
+
+extract6 <- Filter(function(x){nchar(x)>=2}, extract6)
+plot(edited6, family='AppleGothic', main='pengsu yu jae seok unboxing', xlab='keyword', ylab='frequency')
+
+library(RColorBrewer)
+library(wordcloud)
+
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract6), decreasing=T),50)),
+  head(sort(table(extract6), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+#-------------------------------------------------------
 
 extract_freq_words(jp_ep3) -> extract7
-edited7 = head(sort(table(extract7), decreasing=T),80)
+edited7 = head(sort(table(extract7), decreasing=T),8)
 edited7
+
+extract7 = gsub('광고', '', extract7)
+extract7 = gsub('이거', '', extract7)
+extract7 = gsub('갤럭시', '', extract7)
+extract7 = gsub('넘재밌어서', '넘재밌음', extract7)
+extract7 = gsub('연관된거', '', extract7)
+extract7 = gsub('진짜', '', extract7)
+extract7 = gsub('유펭듀잇', '', extract7)
+extract7 = gsub('유펭두잇', '', extract7)
+extract7 = gsub('유느님', '유재석', extract7)
+extract7 = gsub('유느님과', '유재석', extract7)
+extract7 = gsub('펭수랑', '펭수', extract7)
+extract7 = gsub('고네요초대박', '대박', extract7)
+extract7 = gsub('봐지네요펭수', '펭수', extract7)
+extract7 = gsub('이네요유펭두잇최고', '최고', extract7)
+extract7 = gsub('이렇게호감가고', '호감', extract7)
+extract7 = gsub('광고를하네', '', extract7)
+extract7 = gsub('된거같은데펭수가', '펭수', extract7)
+extract7 = gsub('삼성까지우리나라', '', extract7)
+extract7 = gsub('유재석과', '유재석', extract7)
+extract7 = gsub('넘재밌음', '꿀잼', extract7)
+extract7 = gsub('펭수유재석', '등장인물', extract7)
+extract7 = gsub('봐도또보고', '반복시청', extract7)
+
+extract7 <- Filter(function(x){nchar(x)>=2}, extract7)
+
+plot(edited7, family='AppleGothic', main='pengsu yu jae seok ep-3', xlab='keyword', ylab='frequency')
+
+library(RColorBrewer)
+library(wordcloud)
+
+color <- brewer.pal(12, "Set3")
+wordcloud(
+  names(head(sort(table(extract7), decreasing=T),50)),
+  head(sort(table(extract7), decreasing=T),50), 
+  scale=c(5, 1.5), 
+  random.order=FALSE, 
+  random.color=TRUE,
+  colors=color, 
+  family='AppleGothic')
+
+
+
+#----------------------------------------------------------------여기서부터 하면 된다. 
+
 
 
 extract_freq_words(nalchi_unboxing) -> extract8
