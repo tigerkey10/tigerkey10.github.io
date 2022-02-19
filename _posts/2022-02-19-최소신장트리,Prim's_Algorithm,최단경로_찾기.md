@@ -325,8 +325,332 @@ prim(10, 1)
 
 ---
 
-# 최단 경로 찾기
+# 최단 경로(Shortest Path) 찾기
 
+가중치 그래프 출발점에서 어떤 정점 $w$ 까지 도달하는 최단 경로 찾기. 
+
+# Diijkstra(데이크스트라) 알고리듬
+
+가중치 그래프에서. 출발점~정점 $w$ 까지. 최단 경로 찾는 알고리듬. 
+
+- 전체적으로 Prim 알고리듬과 거의 똑같다. 
+
+## Prim 알고리듬과 차이점 
+
+1. Prim 알고리듬은 출발점 주어지지 않지만, Diijkstra 알고리듬은 출발점이 주어진다. 
+2. Prim 알고리듬은 리스트 D에 연결성분과 정점 $w$ 사이 간선 가중치가 저장되는 데 반해, Diijkstra 알고리듬은 D에 출발점~정점 $w$ 사이 경로 길이가 저장된다. 
+
+*경로 길이: 출발점~정점 $w$ 사이 간선들 가중치 합. 
+
+---
+
+# Diijkstra 알고리듬 구현 
+
+*가중치 중 음수 있으면 최단 경로 제대로 못 찾을 수 있다. 
+
+```python 
+# 데이크스트라 알고리듬 정의 
+
+import sys 
+
+for k in range(N) : 
+    # 여기서 m과 min_value 는 임시 값.
+    m = -1
+    min_value = sys.maxsize 
+        
+    for i in range(N) : 
+        if not visited[i] and (D[i] < min_value) : # 방문 안 했고, 출발점에서 경로 길이 가장 짧은 정점 j
+            min_value = D[i] # 최소 경로 길이 , D[i] 는 출발점에서 정점 i 사이 간선들 가중치 합
+            m = i # 출발점에서 가장 가까운 정점 m 
+    visited[m] = True # 방문 완료: 최단 경로 확정. 갱신 더 이상 안 한다.
+    
+    for w, wt in g[m] : # 정점 m의 (인접 정점, 가중치)
+        if not visited[w] : # 출발~정점 w 까지 최단거리 아직 확정 못 지었다면 
+            # 최단경로 갱신(간선완화)
+            if (D[m] + wt) < D[w] : # 기존 경로보다 (D[m] + wt)가 더 최단 경로면 
+                D[w] = D[m] + wt # 출발점~w까지 최단 거리 갱신. 간선완화 
+                previous[w] = m 
+```
+
+## 알고리듬 테스트 - 1
+
+아래 그래프에서 출발점을 정점 0 삼아 0에서 각 정점 i 까지 최단 경로를 찾아보자. 
+
+<img width="522" alt="Screen Shot 2022-02-19 at 21 55 36" src="https://user-images.githubusercontent.com/83487073/154801691-a6520855-9b69-443b-a323-eaaca33b8cec.png">
+
+```python 
+# 테스트 
+
+# 정점 수 
+N = 10 
+
+# 출발점
+s = 0 
+
+# 정점 i의 (인접 정점, 간선 가중치) 리스트
+g = [None for x in range(N)]
+
+# 정점 w까지 최단 경로 확정 유무 
+visited = [False for x in range(N)]
+
+# 출발점부터 정점 w 까지 경로 길이 
+D = [sys.maxsize for x in range(N)]
+D[s] = 0 
+
+# 정점 w의 이전 정점 리스트 
+previous = [None for x in range(N)]
+previous[s] = None 
+
+# 그래프 
+g[0] = [(2,3),(3,5)]
+g[1] = [(2,6),(5, 13)]
+g[2] = [(0, 3), (1,6),(3,1),(5,14)]
+g[3] = [(0,5),(2,1),(4,7),(6,15)]
+g[4] = [(3,7),(6,16)]
+g[5] = [(1,13),(2,14),(8,12),(7,17)]
+g[6] = [(3,15),(4,16),(7,10),(9,11)]
+g[7] = [(5,17),(8,9),(6,10),(9,8)]
+g[8] = [(5,12),(7,9)]
+g[9] = [(7,8),(6,11)]
+
+
+# 데이크스트라 알고리듬 정의 
+import sys 
+
+for k in range(N) : 
+    m = -1
+    min_value = sys.maxsize 
+        
+    for i in range(N) : 
+        if not visited[i] and (D[i] < min_value) : 
+            min_value = D[i] # 최소 경로 길이 
+            m = i # 출발점에서 가장 가까운 정점 m 
+    visited[m] = True # 방문 완료: 최단 경로 확정. 갱신 더 이상 안 한다.
+    
+    for w, wt in g[m] : # 정점 m의 (인접 정점, 가중치)
+        if not visited[w] : # 출발~정점 w 까지 최단거리 아직 확정 못 지었다면 
+            # 최단경로 갱신(간선완화)
+            if (D[m] + wt) < D[w] : # 기존 경로보다 최단 경로면 
+                D[w] = D[m] + wt # 간선완화 
+                previous[w] = m 
+```
+
+## 출발점 0에서 정점 i 까지 최단 경로 길이 
+
+시작점과 정점 i 사이 경로 없으면 $D[i]$ 는 $\infty$ 로 그냥 둔다.
+
+```python 
+# 최단 경로 길이
+print(f'출발점 {s} 로 부터 정점 i의 최단거리')
+for i in range(N) : 
+    if D[i] == sys.maxsize : # 시작점과 i 사이 경로 없는 경우
+        print(f'출발점 {s}와 정점 {i} 사이 경로 없음')
+    else : 
+        print(f'[{s}, {i}] = {D[i]}') # 시작점과 정점 i 사이 최단 경로길이 출력
+```
+
+출발점 0 로 부터 정점 i의 최단거리
+
+[0, 0] = 0
+
+[0, 1] = 9
+
+[0, 2] = 3
+
+[0, 3] = 4
+
+[0, 4] = 11
+
+[0, 5] = 17
+
+[0, 6] = 19
+
+[0, 7] = 29
+
+[0, 8] = 29
+
+[0, 9] = 30
+
+)
+
+## 출발점 0에서 정점 i 까지 최단 경로 
+
+```python 
+# 최단경로
+
+print(f'출발점 {s} 로 부터 정점 i 까지 최단경로')
+for i in range(N) : 
+    vertex = i # 현재 정점 i 
+    print(vertex, end='')
+    while (vertex != s) : 
+        print(f'<-{previous[vertex]}', end='')
+        vertex = previous[vertex]
+    print() 
+```
+
+출발점 0 로 부터 정점 i 까지 최단경로
+
+0
+
+1<-2<-0
+
+2<-0
+
+3<-2<-0
+
+4<-3<-2<-0
+
+5<-2<-0
+
+6<-3<-2<-0
+
+7<-6<-3<-2<-0
+
+8<-5<-2<-0
+
+9<-6<-3<-2<-0
+
+## 알고리듬 테스트 - 2
+
+이번엔 아래 그래프에서 시작점 0 삼아 각 정점까지 최단 경로 찾기를 해보자. 
+
+<img width="440" alt="Screen Shot 2022-02-19 at 15 36 42" src="https://user-images.githubusercontent.com/83487073/154789697-a3f41c31-0ac8-4088-a73b-87a2fe773ddc.png">
+
+```python 
+# 테스트
+
+N = 10 
+s = 0 
+
+g = [None for x in range(N)]
+
+visited = [False for x in range(N)]
+
+D = [sys.maxsize for x in range(N)]
+D[s] = 0 
+
+previous = [None for x in range(N)]
+previous[s] = None 
+
+g[0] = [(1, 7), (2, 6)]
+g[1] = [(0, 7), (2, 5), (6, 13), (3, 9)]
+g[2] = [(0, 6), (1, 5), (5, 8), (4, 2)]
+g[3] = [(1, 9)]
+g[4] = [(2, 2), (9, 1)]
+g[5] = [(2, 8)]
+g[6] = [(1, 13), (8, 11), (7, 10)]
+g[7] = [(6, 10)]
+g[8] = [(6, 11)]
+g[9] = [(4,1)]
+
+
+
+# 데이크스트라 알고리듬 정의 
+import sys 
+
+for k in range(N) : 
+    m = -1
+    min_value = sys.maxsize 
+        
+    for i in range(N) : 
+        if not visited[i] and (D[i] < min_value) : 
+            min_value = D[i] # 최소 경로 길이 
+            m = i # 출발점에서 가장 가까운 정점 m 
+    visited[m] = True # 방문 완료: 최단 경로 확정. 갱신 더 이상 안 한다.
+    
+    for w, wt in g[m] : # 정점 m의 (인접 정점, 가중치)
+        if not visited[w] : # 출발~정점 w 까지 최단거리 아직 확정 못 지었다면 
+            # 최단경로 갱신(간선완화)
+            if (D[m] + wt) < D[w] : # 기존 경로보다 최단 경로면 
+                D[w] = D[m] + wt # 간선완화 
+                previous[w] = m 
+```
+
+## 출발점 0에서 정점 i 까지 최단 경로 길이 
+
+시작점과 정점 i 사이 경로 없으면 $D[i]$ 는 $\infty$ 로 그냥 둔다.
+
+```python 
+# 최단 경로 길이 
+print(f'출발점 {s} 로 부터 정점 i의 최단거리')
+for i in range(N) : 
+    if D[i] == sys.maxsize : 
+        print(f'출발점 {s}와 정점 {i} 사이 경로 없음')
+    else : 
+        print(f'[{s}, {i}] = {D[i]}')
+```
+
+출발점 0 로 부터 정점 i의 최단거리
+
+[0, 0] = 0
+
+[0, 1] = 7
+
+[0, 2] = 6
+
+[0, 3] = 16
+
+[0, 4] = 8
+
+[0, 5] = 14
+
+[0, 6] = 20
+
+[0, 7] = 30
+
+[0, 8] = 31
+
+[0, 9] = 9
+
+## 출발점 0에서 정점 i 까지 최단 경로 
+
+```python 
+# 최단 경로 
+
+print(f'출발점 {s} 로 부터 정점 i 까지 최단경로')
+for i in range(N) : 
+    vertex = i # 현재 정점 i 
+    print(vertex, end='')
+    while (vertex != s) : 
+        print(f'<-{previous[vertex]}', end='')
+        vertex = previous[vertex]
+    print() 
+```
+
+출발점 0 로 부터 정점 i 까지 최단경로
+
+0
+
+1<-0
+
+2<-0
+
+3<-1<-0
+
+4<-2<-0
+
+5<-2<-0
+
+6<-1<-0
+
+7<-6<-1<-0
+
+8<-6<-1<-0
+
+9<-4<-2<-0
+
+---
+
+# Diijkstra 알고리듬 성능 
+
+## $O(N^{2})$ 
+
+- 알고리듬 시작부에서. 출발점에서 가장 가까운 정점 찾기 위해. D에서 $N$개 정점 비교한다. $\Rightarrow$ $O(N)$ 시간 소요 
+- 출발점에서 가장 가까운 정점 $m$ 의 인접 정접 $M(M\leq N)$ 개를 검사해서, D의 원소 갱신한다. $\Rightarrow$ 추가로 $O(M)$ 시간 소요 
+
+$O(N+M) = O(N)$
+
+- 위 과정을 정점 갯수 $N$ 번 반복한다. $\Rightarrow$ 총 수행시간: $O(N^{2})$
 
 
 
