@@ -239,6 +239,44 @@ print(f'\n최소신장트리 가중치 합:{mst_cost}')
 <img width="440" alt="Screen Shot 2022-02-19 at 15 36 42" src="https://user-images.githubusercontent.com/83487073/154789697-a3f41c31-0ac8-4088-a73b-87a2fe773ddc.png">
 
 ```python 
+# 시작 정점 
+start = 1 
+
+# 정점 수 
+N = 10 
+
+# 0~9 까지 각 정점의 인접 정점 리스트 
+g = [None for x in range(N)]
+
+# 각 정점의 (인접 정점, 그 사이 간선 가중치)
+g[0] = [(1, 7), (2, 6)]
+g[1] = [(0, 7), (2, 5), (6, 13), (3, 9)]
+g[2] = [(0, 6), (1, 5), (5, 8), (4, 2)]
+g[3] = [(1, 9)]
+g[4] = [(2, 2), (9, 1)]
+g[5] = [(2, 8)]
+g[6] = [(1, 13), (8, 11), (7, 10)]
+g[7] = [(6, 10)]
+g[8] = [(6, 11)]
+g[9] = [(4,1)]
+
+# 각 정점 방문 완료 여부 표시 
+visited = [False for x in range(N)]
+
+# 정점 i와 연결 성분 사이 간선 가중치(최소가 우선)
+D = [sys.maxsize for x in range(N)]
+
+# 시작 정점과 연결성분 사이엔 간선이 존재 안 한다. 
+D[start] = 0 
+
+# 새로 발견된 정점의 그 이전 정점 (최소신장트리 간선 추출 위함)
+previous = [None for x in range(N)]
+previous[start] = None 
+```
+
+## 프림 알고리듬 정의
+
+```python 
 # 프림 알고리듬 정의 
 
 def prim(N, start): 
