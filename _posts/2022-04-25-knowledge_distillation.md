@@ -22,6 +22,8 @@ last_modified_at : 2022-04-25
 
 Authors: Geoffrey Hinton, Oriol Vinyals, Jeff Dean
 
+https://arxiv.org/abs/1503.02531
+
 ---
 
 # Knowledge Distillation 지식 증류
